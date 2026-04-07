@@ -95,7 +95,7 @@ Final Context-Aware Answer
 
 ## 📁 Project Structure
 
-
+```
 genai-pdf-assistant/
 │
 ├── app.py # Main application (RAG + UI)
@@ -105,6 +105,7 @@ genai-pdf-assistant/
 │ └── config.toml # UI configuration
 ├── README.md # Project documentation
 
+```
 
 ---
 
