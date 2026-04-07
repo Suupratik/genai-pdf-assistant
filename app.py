@@ -96,7 +96,10 @@ with st.sidebar:
         "Choose",
         ["Ask Question", "Summarize PDF", "Important Points", "Notes", "Questions", "Explain Simple"]
     )
-
+    if st.button("Clear Chat"):
+        st.session_state.chat_history = []
+        st.rerun()
+    
     if st.button("Reset Chat"):
         st.session_state.chat_history = []
         st.session_state.vector_store = None
