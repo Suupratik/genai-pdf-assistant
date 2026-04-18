@@ -23,7 +23,7 @@ client = Groq(api_key=GROQ_API_KEY)
 st.set_page_config(page_title="NoteBot AI", page_icon="🤖", layout="wide")
 
 st.title("🤖 NoteBot AI – Smart Study Assistant")
-st.caption("RAG + Chatbot + Study Intelligence")
+st.caption("RAG + General AI Chatbot")
 
 # =======================
 # SESSION
@@ -59,8 +59,8 @@ with st.sidebar:
     files = st.file_uploader("Upload PDFs", type="pdf", accept_multiple_files=True)
 
     k = st.slider("Accuracy (Top-K)", 1, 10, 5)
-    temperature = st.slider("Creativity", 0.0, 1.0, 0.7)
-    use_memory = st.checkbox("Chat with Generated Content", value=True)
+    temperature = st.slider("Creativity (Temperature)", 0.0, 1.0, 0.7)
+    use_memory = st.checkbox("Use Memory", value=True)
 
     study_mode = st.selectbox(
         "Mode",
@@ -74,7 +74,7 @@ with st.sidebar:
             "General Chatbot"
         ]
     )
-
+    
     if st.button("Clear Chat"):
         st.session_state.chat_history = []
         st.rerun()
@@ -152,20 +152,23 @@ if study_mode == "General Chatbot" and query:
     answer = response.choices[0].message.content
 
     st.session_state.chat_history.append(("bot", answer))
-    st.session_state.last_output = answer
+    st.markdown(answer)
+
+    st.stop()
 
 # =======================
 # MAIN RAG LOGIC
 # =======================
-elif (query or study_mode != "Ask Question") and st.session_state.vector_store:
+if (query or study_mode != "Ask Question") and st.session_state.vector_store:
 
     if study_mode == "Ask Question":
 
         if detect_unfair_query(query):
             answer = savage_reply()
-            st.session_state.chat_history.append(("bot", answer))
-        else:
-            st.session_state.chat_history.append(("user", query))
+            st.markdown(answer)
+            st.stop()
+
+        st.session_state.chat_history.append(("user", query))
 
     docs = st.session_state.vector_store.similarity_search(
         query if query else "summary", k=max(k, 5)
@@ -221,11 +224,7 @@ Explain like teaching a beginner.
 
     else:
         prompt = f"""
-You are a smart academic assistant.
-
-Use:
-- PDF context
-- Previous generated output
+Answer using context + previous output.
 
 Previous Output:
 {extra_context}
@@ -235,10 +234,11 @@ Context:
 
 Question:
 {query}
-
-Answer clearly and structured.
 """
 
+    # =======================
+    # LLM CALL
+    # =======================
     with st.spinner("Thinking..."):
         response = client.chat.completions.create(
             model="llama-3.1-8b-instant",
@@ -248,20 +248,26 @@ Answer clearly and structured.
 
     answer = response.choices[0].message.content
 
-    st.session_state.chat_history.append(("bot", answer))
     st.session_state.last_output = answer
+    st.session_state.chat_history.append(("bot", answer))
 
+    st.markdown(answer)
+
+    st.download_button("Download Answer", answer)
+
+    # =======================
     # SOURCE DISPLAY
+    # =======================
     with st.expander("📄 Sources"):
         for d in docs[:3]:
             st.write(f"📍 Page {d.metadata['page']}")
             st.write(d.page_content[:300])
 
 # =======================
-# DISPLAY CHAT (CORRECT ORDER)
+# CHAT DISPLAY
 # =======================
 for role, msg in st.session_state.chat_history:
     if role == "user":
-        st.markdown(f'<div style="text-align:right; margin:10px;"><b>🧑 {msg}</b></div>', unsafe_allow_html=True)
+        st.markdown(f"🧑 {msg}")
     else:
-        st.markdown(f'<div style="text-align:left; margin:10px;">🤖 {msg}</div>', unsafe_allow_html=True)
+        st.markdown(f"🤖 {msg}")
