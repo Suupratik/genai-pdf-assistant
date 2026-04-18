@@ -22,7 +22,7 @@ client = Groq(api_key=GROQ_API_KEY)
 # =======================
 st.set_page_config(page_title="NoteBot AI", page_icon="🤖", layout="wide")
 
-st.title("🤖 NoteBot AI – Smart Study Assistant")
+st.title("🤖 NoteBot AI –  RAG Based PDF Assistant")
 st.caption("RAG + General AI Chatbot")
 
 # =======================
