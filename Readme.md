@@ -1,95 +1,142 @@
-# 🤖 NoteBot AI — Intelligent PDF Study Assistant (RAG-Based)
+# 🤖 NoteBot AI
 
-A **Generative AI-powered web application** that allows users to upload PDFs and interact with them through natural language queries.
 
-Built using **Retrieval-Augmented Generation (RAG)**, the system retrieves relevant document context and generates accurate, explainable answers using a Large Language Model (LLM).
+### Intelligent PDF Study Assistant using RAG + Conversational AI
+
+---
+
+## 🚀 Live Demo
+
+🔗 https://genai-pdf-assistant-cjibutvbnxpzvhh4xaxqvw.streamlit.app/
+
+## 💻 GitHub Repository
+
+🔗 https://github.com/Suupratik/genai-pdf-assistant
 
 ---
 
 ## 📌 Overview
 
-NoteBot AI transforms static PDFs into an **interactive study assistant**.
+**NoteBot AI** is a **Generative AI-powered application** that transforms static PDF documents into an **interactive, conversational study assistant**.
 
-Instead of manually reading long documents, users can:
-- Ask questions
-- Generate summaries
-- Extract key points
-- Create notes and questions
+It uses **Retrieval-Augmented Generation (RAG)** to retrieve relevant document context and combines it with a **Large Language Model (LLM)** to generate accurate, explainable, and context-aware answers.
 
-This system combines **semantic search (FAISS)** with **LLM-based reasoning (GROQ)** to deliver fast and context-aware responses.
+This system is designed to enhance:
 
----
-
-## ✨ Features
-
-### 📄 Core Features
-- Upload single or multiple PDF documents
-- Ask questions in natural language
-- Context-aware answers using RAG
-- Fast inference using GROQ LLM
-- Semantic search via FAISS vector database
+* 📚 Learning efficiency
+* 🧠 Concept understanding
+* 📄 Document exploration
 
 ---
 
-### 📚 Study Assistant Features
-- 📑 **Summarize PDF** — Quick revision summaries
-- 📌 **Important Points Extraction** — Key highlights
-- 📝 **Automatic Notes Generation** — Exam-ready notes
-- ❓ **Question Generation** — Possible exam questions
-- 🧒 **Explain Like I'm Beginner** — Simplified explanations
+## ✨ Key Features
+
+### 📄 Document Processing
+
+* Upload **single or multiple PDFs**
+* Multi-page text extraction
+* Structured document understanding
 
 ---
 
-### 🎨 UI/UX Features
-- Clean chat-based interface (Streamlit)
-- Styled chat bubbles (user vs bot)
-- Sidebar controls (study modes + accuracy)
-- Download generated answers
-- View source context (transparency)
+### 🧠 RAG-Based Question Answering
+
+* Ask questions in natural language
+* Retrieves relevant chunks using **FAISS**
+* Generates answers grounded in document context
+* Adjustable **Top-K retrieval control**
+
+---
+
+### 📚 Study Assistant Capabilities
+
+* 📑 **Summarization**
+  → Generates structured summaries for quick revision
+
+* 📌 **Important Points Extraction**
+  → Identifies key exam-relevant concepts
+
+* 📝 **Notes Generator**
+  → Creates clean, structured study notes
+
+* ❓ **MCQ Generator**
+  → Produces practice questions with answers and explanations
+
+* 🧒 **Explain Like Beginner**
+  → Simplifies complex topics
+
+---
+
+### 💬 General AI Chatbot
+
+* Works **independently of PDFs**
+* Handles general queries and concept explanations
+* Adjustable **temperature (creativity control)**
+
+---
+
+### 🔁 Conversational Memory
+
+* Enables **follow-up questioning**
+* Uses previous outputs for deeper understanding
+* Supports multi-step learning interaction
+
+---
+
+### 📊 Transparency & Retrieval
+
+* Displays **source document chunks**
+* Shows **page numbers** for traceability
+* Improves trust in generated responses
 
 ---
 
 ### 🛡️ Smart Guardrails
-- Detects unfair queries (e.g., "paper leak", "exact questions")
-- Responds with ethical, academic guidance
-- Prevents misuse of the system
+
+* Detects unfair queries like:
+
+  * "paper leak"
+  * "exact question"
+* Responds ethically to prevent misuse
 
 ---
 
-## 🧠 How It Works (RAG Pipeline)
+## 🧠 System Architecture (RAG Pipeline)
 
-
+```
 PDF Upload
-↓
+   ↓
 Text Extraction (PyPDF2)
-↓
+   ↓
 Chunking (Text Splitter)
-↓
+   ↓
 Embeddings (HuggingFace)
-↓
+   ↓
 Vector Storage (FAISS)
-↓
+   ↓
 User Query
-↓
-Similarity Search (Top-K Retrieval)
-↓
+   ↓
+Similarity Search (Top-K)
+   ↓
+Context + Memory Injection
+   ↓
 LLM Processing (GROQ)
-↓
-Final Context-Aware Answer
-
+   ↓
+Final Answer
+```
 
 ---
 
 ## 🧰 Tech Stack
 
-| Component | Technology |
-|----------|----------|
-| Language | Python 🐍 |
-| UI | Streamlit 🎨 |
-| LLM | GROQ API ⚡ |
-| Embeddings | HuggingFace 🤖 |
-| Vector DB | FAISS 📊 |
-| PDF Processing | PyPDF2 📄 |
+| Component       | Technology     |
+| --------------- | -------------- |
+| Language        | Python 🐍      |
+| UI              | Streamlit 🎨   |
+| LLM             | GROQ API ⚡     |
+| Embeddings      | HuggingFace 🤖 |
+| Vector Database | FAISS 📊       |
+| PDF Processing  | PyPDF2 📄      |
 
 ---
 
@@ -98,86 +145,113 @@ Final Context-Aware Answer
 ```
 genai-pdf-assistant/
 │
-├── app.py # Main application (RAG + UI)
-├── requirements.txt # Dependencies
-├── .env # API keys (not pushed to GitHub)
+├── app.py                # Main application
+├── requirements.txt     # Dependencies
+├── README.md            # Documentation
+├── .gitignore
 ├── .streamlit/
-│ └── config.toml # UI configuration
-├── README.md # Project documentation
-
+│   └── config.toml      # UI & system config
 ```
 
 ---
 
-## ⚙️ Installation & Setup
+## ⚙️ Setup & Installation
 
 ### 1️⃣ Clone Repository
 
 ```bash
 git clone https://github.com/Suupratik/genai-pdf-assistant.git
 cd genai-pdf-assistant
-2️⃣ Create Virtual Environment
+```
+
+### 2️⃣ Create Virtual Environment
+
+```bash
 python -m venv venv
 venv\Scripts\activate
-3️⃣ Install Dependencies
+```
+
+### 3️⃣ Install Dependencies
+
+```bash
 pip install -r requirements.txt
-4️⃣ Add API Key
+```
 
-Create .env file:
+### 4️⃣ Add API Key
 
+Create a `.env` file:
+
+```
 GROQ_API_KEY=your_api_key_here
-5️⃣ Run Application
+```
+
+---
+
+### 5️⃣ Run Application
+
+```bash
 streamlit run app.py
-☁️ Deployment
+```
 
-Deployed using Streamlit Community Cloud
+---
 
-Steps:
-Push code to GitHub
-Connect repository to Streamlit Cloud
-Add secret:
+## ☁️ Deployment
+
+Deployed using **Streamlit Community Cloud**
+
+### Steps:
+
+1. Push code to GitHub
+2. Connect repository to Streamlit Cloud
+3. Add secret:
+
+```
 GROQ_API_KEY = "your_api_key"
-Deploy 🚀
-🧠 Key Concepts Used
-Retrieval-Augmented Generation (RAG)
-Large Language Models (LLMs)
-Prompt Engineering
-Semantic Search
-Vector Databases (FAISS)
-Embeddings
-🔮 Future Improvements
-📄 Multi-document comparison
-🧠 Persistent chat memory
-🔍 Highlight answers inside PDF
-📊 Advanced summarization modes
-🌐 Multilingual support
-📱 Mobile UI optimization
-📌 Author
+```
 
-👨‍💻 Supratik Mitra
+4. Deploy 🚀
+
+---
+
+## 🧠 Concepts Implemented
+
+* Retrieval-Augmented Generation (RAG)
+* Large Language Models (LLMs)
+* Prompt Engineering
+* Semantic Search
+* Vector Databases (FAISS)
+* Embeddings
+* Conversational Memory
+
+---
+
+## 🔮 Future Enhancements
+
+* 📌 Highlight answers directly in PDF
+* 📊 Confidence scoring
+* 📄 Multi-document comparison
+* 🌐 Multilingual support
+* 📱 Mobile UI optimization
+
+---
+
+
+## 👨‍💻 Author
+
+**Supratik Mitra**
 B.Tech CSE (AI & ML)
 
-⭐ Support
+---
+
+## ⭐ Support
 
 If you found this project useful:
 
-👉 Give it a ⭐ on GitHub
-👉 Share it with others
-
-🎯 Final Note
-
-This project demonstrates how Generative AI + Retrieval Systems can transform static documents into intelligent, interactive knowledge systems.
-
+* ⭐ Star the repository
+* 🔗 Share with others
 
 ---
 
-# 🔥 WHAT IMPROVED
+## 🎯 Final Note
 
-- More **professional language**
-- Added **study features (important!)**
-- Added **guardrails (very impressive)**
-- Clean **tech + pipeline explanation**
-- Proper **deployment section**
-- Strong **viva impression**
-
----
+This project demonstrates how **Generative AI + Retrieval Systems + Conversational Interfaces** can transform static documents into intelligent, interactive knowledge systems, enabling faster and deeper learning.
